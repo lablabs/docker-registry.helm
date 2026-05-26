@@ -1,0 +1,40 @@
+name: Cache Warmup
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main # caches from the main branch are shared with all other branches and pull requests
+
+permissions:
+  contents: read
+
+env:
+  # renovate: datasource=github-releases depName=jdx/mise
+  MISE_VERSION: 2026.5.12
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Setup Mise
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+        with:
+          version: ${{ env.MISE_VERSION }}
+
+      - name: Cache pre-commit
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}-warmup
+          restore-keys: ${{ runner.os }}-pre-commit-
+
+      - name: Run pre-commit
+        run: pre-commit install --install-hooks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required for GH API calls quota
