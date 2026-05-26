@@ -21,8 +21,12 @@ image:
   repository: registry
   tag: 2.8.1
   pullPolicy: IfNotPresent
-# imagePullSecrets:
-    # - name: docker
+  # imagePullSecrets:
+  # - name: docker
+
+# Configuration mount point for the registry config file.
+configPath: /etc/docker/registry
+
 service:
   name: registry
   type: ClusterIP
@@ -63,7 +67,7 @@ resources: {}
   #  cpu: 100m
   #  memory: 128Mi
 persistence:
-  accessMode: 'ReadWriteOnce'
+  accessMode: "ReadWriteOnce"
   enabled: false
   size: 10Gi
   # storageClass: '-'
@@ -192,6 +196,8 @@ nodeSelector: {}
 affinity: {}
 
 tolerations: []
+
+topologySpreadConstraints: []
 
 extraVolumeMounts: []
 ## Additional volumeMounts to the registry container.

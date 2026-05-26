@@ -50,7 +50,7 @@ spec:
               - /bin/registry
               - garbage-collect
               - --delete-untagged={{ .Values.garbageCollect.deleteUntagged }}
-              - /etc/docker/registry/config.yml
+              - {{ printf "%s/config.yml" .Values.configPath }}
               env: {{ include "docker-registry.envs" . | nindent 16 }}
               volumeMounts: {{ include "docker-registry.volumeMounts" . | nindent 16 }}
           restartPolicy: OnFailure

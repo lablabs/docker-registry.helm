@@ -17,13 +17,13 @@ This chart will do the following:
 First, add the repo:
 
 ```console
-$ helm repo add twuni https://helm.twun.io
+helm repo add twuni https://helm.twun.io
 ```
 
 To install the chart, use the following:
 
 ```console
-$ helm install twuni/docker-registry
+helm install twuni/docker-registry
 ```
 
 ## Configuration
@@ -67,7 +67,7 @@ their default values.
 | `autoscaling.targetCPUUtilizationPercentage` | Target average utilization of CPU on Pods                                 | `60`            |
 | `autoscaling.targetMemoryUtilizationPercentage` | (Kubernetes ≥1.23) Target average utilization of Memory on Pods        | `60`            |
 | `autoscaling.behavior`      | (Kubernetes ≥1.23) Configurable scaling behavior                                           | `{}`            |
-| `priorityClassName      `   | priorityClassName                                                                          | `""`            |
+| `priorityClassName`   | priorityClassName                                                                          | `""`            |
 | `storage`                   | Storage system to use                                                                      | `filesystem`    |
 | `tlsSecretName`             | Name of secret for TLS certs                                                               | `nil`           |
 | `secrets.htpasswd`          | Htpasswd authentication                                                                    | `nil`           |
@@ -95,6 +95,7 @@ their default values.
 | `nodeSelector`              | node labels for pod assignment                                                             | `{}`            |
 | `affinity`                  | affinity settings                                                                          | `{}`            |
 | `tolerations`               | pod tolerations                                                                            | `[]`            |
+| `topologySpreadConstraints` | topology spread constraints for pod scheduling                                             | `[]`            |
 | `ingress.enabled`           | If true, Ingress will be created                                                           | `false`         |
 | `ingress.annotations`       | Ingress annotations                                                                        | `{}`            |
 | `ingress.labels`            | Ingress labels                                                                             | `{}`            |
