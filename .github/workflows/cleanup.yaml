@@ -35,4 +35,4 @@ jobs:
             /orgs/${{ github.repository_owner }}/packages/container/${PACKAGE_NAME} || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PACKAGE_NAME: ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}%2F${{ env.GITHUB_EVENT_REF_SLUG_URL || env.GITHUB_HEAD_REF_SLUG_URL }}%2F${{ matrix.chart }}
+          PACKAGE_NAME: ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}%2F${{ env.GITHUB_EVENT_REF_SLUG || env.GITHUB_HEAD_REF_SLUG }}%2F${{ matrix.chart }}
